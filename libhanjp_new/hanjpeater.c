@@ -149,6 +149,22 @@ static const int hangul_to_kana(ucschar* dest, int state, ucschar* hangul, ucsch
         dest[0] = kana_table[i][1];
         dest[1] = kana_table[12][j]-1;
         return 2;
+    }else if(hangul[2]!=NULL){
+        switch(hangul[2]){
+            case HANJP_JONGSEONG_KIYEOK:
+                if(i==1) dest[1] = kana_table[5][2]-1;
+            case HANJP_JONGSEONG_SIOS:
+                if(i==3 || i==5) dest[1] = kana_table[5][2]-1;
+            case HANJP_JONGSEONG_PHIEUPH:
+                if(i==10) dest[1] = kana_table[5][2]-1;
+            case HANJP_JONGSEONG_NIEUN:
+                if((i>=3 && i<=6) || i==7 || i=13) dest[1] = kana_table[15][0];
+            case HANJP_JONGSEONG_IEUNG:
+                if(i==1 || i==2) dest[1] = kana_table[15][0];
+            case HANJP_JONGSEONG_MIEUM:
+                if(i==11 || i==8 || i==9) dest[1] = kana_table[15][0];
+        }
+        return 2;
     }else{
         return 1;
     }
